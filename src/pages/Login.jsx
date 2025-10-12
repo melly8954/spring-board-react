@@ -18,7 +18,7 @@ function Login() {
 
   return (
     <div className="app-container">
-        <div className="login-box">
+      <div className="login-box">
         <h2>로그인</h2>
         <input
           type="text"
