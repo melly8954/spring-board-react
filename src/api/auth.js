@@ -1,4 +1,4 @@
-import api from './axiosInstance';
+import { publicApi } from './axiosInstance';
 
 const auth = async (username, password) => {
   // 유효성 검사
@@ -13,7 +13,7 @@ const auth = async (username, password) => {
 
   // 로그인 API 요청
   try {
-    const response = await api.post('/auth/login', {
+    const response = await publicApi.post('/auth/login', {
       username,
       password
     });

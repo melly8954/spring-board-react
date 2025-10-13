@@ -1,4 +1,4 @@
-import api from './axiosInstance';
+import { publicApi } from './axiosInstance';
 
 const signup = async (username, password, confirmPassword, name, file) => {
   // 유효성 검사
@@ -32,7 +32,7 @@ const signup = async (username, password, confirmPassword, name, file) => {
 
   // 회원가입 API 요청
   try {
-    const response = await api.post('/members', formData, {
+    const response = await publicApi.post('/members', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
