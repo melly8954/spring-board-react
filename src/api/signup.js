@@ -1,7 +1,7 @@
 import api from './axiosInstance';
 
 // 회원가입 요청
-const signup = async ({ username, password, confirmPassword, name, file }) => {
+const signup = async (username, password, confirmPassword, name, file) => {
   // 유효성 검사
   if (!username.trim()) {
     alert('아이디를 입력해주세요.');

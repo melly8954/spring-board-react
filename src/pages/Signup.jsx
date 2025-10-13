@@ -15,7 +15,7 @@ function Signup() {
   const handleSignup = async () => {
     // 회원가입 API 호출
     try {
-      const response = await signup({username, password, confirmPassword, name, file});
+      const response = await signup(username, password, confirmPassword, name, file);
       alert(response.data.message);
       navigate('/');
     } catch (error) {
