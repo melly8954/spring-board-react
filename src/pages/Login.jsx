@@ -1,6 +1,8 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import '../css/login.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../api/auth';
+import handleServerError from '../utils/handleServerError';
+import '../css/login.css';
 
 function Login() {
   const navigate = useNavigate()
@@ -8,8 +10,15 @@ function Login() {
   const [password, setPassword] = useState('')
 
   const handleLogin = async () => {
-    const data = await login(username, password)
-    console.log(data)
+    try{
+      const response = await auth(username, password);
+      alert(response.message);
+      // 로그인 성공 후 토큰 저장
+      localStorage.setItem('AccessToken', response.data.accessToken);
+      navigate("/board");
+    } catch (error){
+      handleServerError(error);
+    }
   }
   
   const handleSignupRedirect = () => {
