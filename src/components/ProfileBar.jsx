@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/axiosInstance";
 import { logout } from '../api/auth';
 import handleServerError from "../utils/handleServerError";
-import '../css/profileBar.css';
+import '../styles/profileBar.css';
 
 function ProfileBar() {
   const navigate = useNavigate();

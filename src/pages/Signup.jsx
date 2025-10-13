@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import signup from '../api/signup';
 import handleServerError from '../utils/handleServerError';
-import '../css/signup.css';
+import '../styles/signup.css';
 
 function Signup() {
   const navigate = useNavigate()  

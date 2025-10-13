@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/auth';
 import handleServerError from '../utils/handleServerError';
-import '../css/login.css';
+import '../styles/login.css';
 
 function Login() {
   const navigate = useNavigate()
