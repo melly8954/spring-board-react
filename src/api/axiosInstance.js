@@ -41,18 +41,18 @@ authApi.interceptors.response.use(
       originalRequest._retry = true;
     
       try {
-        const response = await axios.post("/auth/reissue", null, {
+        const response = await publicApi.post("/auth/reissue", null, {
           withCredentials: true,
         });
-        const newAccessToken = response.data.newAccessToken;
+        const newAccessToken = response.data.data.newAccessToken;
         localStorage.setItem("AccessToken", newAccessToken);
-        console.log("Jwt 토큰 재발급 성공");
+        console.log("토큰 재발급 성공");
         // axios 기본 헤더도 갱신 (중요)
-        api.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
+        authApi.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
 
         // 리프레시 성공 후 원래 요청 재시도
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        return authApi(originalRequest);
       } catch (refreshError) {
         console.log("토큰 재발급 실패");
         localStorage.removeItem("AccessToken");
