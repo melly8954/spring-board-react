@@ -35,7 +35,7 @@ const signup = async (username, password, confirmPassword, name, file) => {
     const response = await api.post('/members', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
-    return response;
+    return response.data;
   } catch (error) {
     throw error;
   }
