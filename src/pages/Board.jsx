@@ -1,14 +1,16 @@
+import { Routes, Route } from "react-router-dom";
 import ProfileBar from '../components/ProfileBar';
 import BoardMenuBar from "../components/BoardMenuBar";
+import { BoardList } from "../components/BoardList";
 
 const Board = () => {
   return(
     <div>
       <ProfileBar />
       <BoardMenuBar />
-      <div>
-        게시판 테스트 페이지
-      </div>
+      <Routes>
+        <Route path=":boardTypeCode" element={<BoardList />} />
+      </Routes>
     </div>
   )
 }

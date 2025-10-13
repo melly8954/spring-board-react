@@ -25,7 +25,7 @@ function BoardMenuBar() {
       <ul>
         {boardTypes.map((type) => (
           <li key={type.boardTypeId} className={boardTypeCode === type.boardTypeCode ? "active" : ""}>
-            <Link to={`/boards/${type.boardTypeCode}`}>
+            <Link to={`/board/${type.boardTypeCode}`}>
               {type.boardTypeName}
             </Link>
           </li>

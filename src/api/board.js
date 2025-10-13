@@ -6,4 +6,13 @@ const getBoardTypes  = async () => {
   return response.data;
 };
 
-export { getBoardTypes  };
+const searchBoard = async (filter) => {
+  try{
+    const response = await authApi.get("/boards", { params: filter }); 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getBoardTypes, searchBoard };
