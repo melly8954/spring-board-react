@@ -1,6 +1,6 @@
-import { publicApi } from './axiosInstance';
+import { publicApi, authApi } from './axiosInstance';
 
-const auth = async (username, password) => {
+const login = async (username, password) => {
   // 유효성 검사
   if (!username.trim()) {
     alert('아이디를 입력해주세요.');
@@ -23,4 +23,14 @@ const auth = async (username, password) => {
   }
 };
 
-export default auth;
+const logout = async () => {
+  try {
+    const response = await authApi.post('/auth/logout');
+    localStorage.removeItem('AccessToken');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { login, logout };

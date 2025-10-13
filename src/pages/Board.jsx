@@ -1,7 +1,12 @@
+import ProfileBar from '../components/ProfileBar';
+
 const Board = () => {
   return(
     <div>
-      게시판 테스트 페이지
+      <ProfileBar />
+      <div>
+        게시판 테스트 페이지
+      </div>
     </div>
   )
 }

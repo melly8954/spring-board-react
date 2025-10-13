@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from '../api/auth';
+import { login } from '../api/auth';
 import handleServerError from '../utils/handleServerError';
 import '../css/login.css';
 
@@ -11,7 +11,7 @@ function Login() {
 
   const handleLogin = async () => {
     try{
-      const response = await auth(username, password);
+      const response = await login(username, password);
       alert(response.message);
       // 로그인 성공 후 토큰 저장
       localStorage.setItem('AccessToken', response.data.accessToken);

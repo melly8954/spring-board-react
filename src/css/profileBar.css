@@ -1,0 +1,42 @@
+.profile-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f8f9fa;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  width: fit-content;
+}
+
+.profile-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  overflow: hidden;      /* 중요: img가 부모 안에 꽉 차게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0e0e0; /* fallback 색상 */
+  font-size: 14px;       /* placeholder 글씨 */
+  color: #555;
+  text-align: center;
+}
+
+.profile-name {
+  font-weight: 500;
+}
+
+.logout-btn {
+  margin-left: auto; /* 오른쪽 정렬 */
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}
