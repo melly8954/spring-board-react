@@ -1,6 +1,5 @@
 import api from './axiosInstance';
 
-// 회원가입 요청
 const signup = async (username, password, confirmPassword, name, file) => {
   // 유효성 검사
   if (!username.trim()) {
@@ -31,6 +30,7 @@ const signup = async (username, password, confirmPassword, name, file) => {
   );
   if (file) formData.append('file', file);
 
+  // 회원가입 API 요청
   try {
     const response = await api.post('/members', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
