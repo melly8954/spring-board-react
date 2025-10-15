@@ -15,7 +15,7 @@ function Login() {
       alert(response.message);
       // 로그인 성공 후 토큰 저장
       localStorage.setItem('AccessToken', response.data.accessToken);
-      navigate("/board");
+      navigate("/board/free");
     } catch (error){
       handleServerError(error);
     }
