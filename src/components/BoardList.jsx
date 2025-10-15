@@ -16,29 +16,44 @@ function BoardList() {
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchBoards = async () => {
+  const fetchBoards = async ({ boardTypeCode, page, searchType, searchKeyword }) => {
     try {
       const filter = { boardTypeCode, page, size, searchType, searchKeyword };
       const response = await searchBoard(filter);
-      setBoards(response.data.content); // PageResponseDto.content 배열
-      setTotalPages(response.data.totalPages);        // 총 페이지 수 상태에 저장
+      setBoards(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       handleServerError(error);
     }
   };
 
   useEffect(() => {
-    fetchBoards();
-  }, [boardTypeCode, page, searchType, searchKeyword]);
-
-  useEffect(() => {
     setPage(1);
+    setSearchType("title");     // 검색 타입 초기화
+    setSearchKeyword("");       // 검색 키워드 초기화
+
+    fetchBoards({
+      boardTypeCode,
+      page: 1,
+      searchType: "title",
+      searchKeyword: ""
+    });
   }, [boardTypeCode]);
 
-  const handleSearch = ({ searchType, searchKeyword }) => {
-    setSearchType(searchType);
-    setSearchKeyword(searchKeyword);
+  useEffect(() => {
+    fetchBoards({ boardTypeCode, page, searchType, searchKeyword });
+  }, [page]);
+
+  // 검색창에서 값 변경
+  const handleSearchChange = (changes) => {
+    if (changes.searchType !== undefined) setSearchType(changes.searchType);
+    if (changes.searchKeyword !== undefined) setSearchKeyword(changes.searchKeyword);
+  };
+
+  // 검색 버튼 클릭
+  const handleSearchSubmit = () => {
     setPage(1);
+    fetchBoards({ boardTypeCode, page: 1, searchType, searchKeyword });
   };
 
   // 이전 / 다음 버튼 클릭 핸들러
@@ -66,7 +81,12 @@ function BoardList() {
         )}
       </ul>
       {/* 검색 영역 */}
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar
+        searchType={searchType}
+        searchKeyword={searchKeyword}
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
+      />
       {/* 페이지네이션 */}
       <Pagination
         page={page}
