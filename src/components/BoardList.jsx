@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Pagination from "./Pagination";
@@ -6,6 +7,7 @@ import { searchBoard } from "../api/board";
 import handleServerError from "../utils/handleServerError";
 
 function BoardList() {
+  const navigate = useNavigate();
   const { boardTypeCode } = useParams();
   const [boards, setBoards] = useState([]);
   const [page, setPage] = useState(1);
@@ -45,6 +47,12 @@ function BoardList() {
 
   return (
     <div className="board-list">
+      <button
+        className="btn btn-primary mb-3"
+        onClick={() => navigate("/board/create")}
+      >
+        게시글 등록
+      </button>
       {/* 게시글 리스트 */}
       <ul className="board-items">
         {boards.length > 0 ? (

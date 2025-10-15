@@ -2,7 +2,6 @@ import { authApi } from './axiosInstance';
 
 const getBoardTypes  = async () => {
   const response = await authApi.get("/boards/types");
-  console.log(response);
   return response.data;
 };
 
@@ -15,4 +14,16 @@ const searchBoard = async (filter) => {
   }
 }
 
-export { getBoardTypes, searchBoard };
+const createBoard = async (formData) => {
+  try{
+    const response = await authApi.post("/boards", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getBoardTypes, searchBoard, createBoard };
