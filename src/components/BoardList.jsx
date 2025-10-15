@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Pagination from "./Pagination";
+import SearchBar from "./SearchBar";
 import { searchBoard } from "../api/board";
 import handleServerError from "../utils/handleServerError";
 
@@ -16,7 +18,6 @@ function BoardList() {
     try {
       const filter = { boardTypeCode, page, size, searchType, searchKeyword };
       const response = await searchBoard(filter);
-      console.log(response);
       setBoards(response.data.content); // PageResponseDto.content 배열
       setTotalPages(response.data.totalPages);        // 총 페이지 수 상태에 저장
     } catch (error) {
@@ -32,10 +33,10 @@ function BoardList() {
     setPage(1);
   }, [boardTypeCode]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setPage(1); // 검색 시 1페이지부터 보여주기
-    fetchBoards();
+  const handleSearch = ({ searchType, searchKeyword }) => {
+    setSearchType(searchType);
+    setSearchKeyword(searchKeyword);
+    setPage(1);
   };
 
   // 이전 / 다음 버튼 클릭 핸들러
@@ -44,22 +45,6 @@ function BoardList() {
 
   return (
     <div className="board-list">
-      {/* 검색 영역 */}
-      <form onSubmit={handleSearch} className="board-search">
-        <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-          <option value="writer">작성자</option>
-        </select>
-        <input
-          type="text"
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-          placeholder="검색어를 입력하세요"
-        />
-        <button type="submit">검색</button>
-      </form>
-
       {/* 게시글 리스트 */}
       <ul className="board-items">
         {boards.length > 0 ? (
@@ -72,13 +57,15 @@ function BoardList() {
           <li>게시글이 없습니다.</li>
         )}
       </ul>
-
+      {/* 검색 영역 */}
+      <SearchBar onSearch={handleSearch} />
       {/* 페이지네이션 */}
-      <div className="pagination">
-        <button onClick={handlePrev} disabled={page <= 1}>이전</button>
-        <span>{page} / {totalPages || 1}</span>
-        <button onClick={handleNext} disabled={page >= totalPages}>다음</button>
-      </div>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </div>
   );
 }
