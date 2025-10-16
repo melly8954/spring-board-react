@@ -53,7 +53,18 @@ function BoardList() {
         {boards.length > 0 ? (
           boards.map((board) => (
             <li key={board.boardId} className="board-item">
-              {board.title}
+              {/* 제목 */}
+              <div className="board-title">{board.title}</div>
+
+              {/* 메타 정보 */}
+              <div className="board-meta">
+                <span className="writer">작성자: {board.writeName}</span>
+                <span className="views">조회수: {board.viewCount}</span>
+                <span className="likes">좋아요: {board.likeCount}</span>
+                <span className="created-at">
+                  {new Date(board.createdAt).toLocaleString()}
+                </span>
+              </div>
             </li>
           ))
         ) : (

@@ -4,7 +4,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* 게시글 리스트 */
 .board-items {
   list-style: none;
   padding: 0;
@@ -20,6 +19,27 @@
 
 .board-item:hover {
   background-color: rgb(186, 193, 197);
+}
+
+/* 제목 */
+.board-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* 메타 정보 */
+.board-meta {
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap; /* 화면 좁아지면 줄바꿈 */
+}
+
+.board-meta span {
+  display: inline-block;
 }
 
 /* 게시글 등록 버튼 */
