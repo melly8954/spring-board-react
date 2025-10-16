@@ -1,0 +1,46 @@
+.board-search {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px; /* select와 input 사이 여백 */
+  margin-bottom: 16px;
+}
+
+.board-search select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.board-search select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.board-search input[type="text"] {
+  width: 200px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.board-search input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+@media (max-width: 600px) {
+  .board-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .board-search input[type="text"] {
+    width: 100%;
+  }
+}

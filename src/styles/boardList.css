@@ -23,10 +23,15 @@
 }
 
 /* 게시글 등록 버튼 */
-.board-list > .btn {
-  display: inline-block;
+.btn-container {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 끝으로 정렬 */
+  margin-bottom: 5px;       /* 기존 버튼 margin-bottom 유지 */
+}
+
+.btn-container > .btn {
   padding: 8px 16px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   border-radius: 6px;
   font-size: 0.9rem;
   cursor: pointer;
@@ -36,7 +41,7 @@
   color: #646cff; 
 }
 
-.board-list > .btn:hover {
+.btn-container > .btn:hover {
   background-color: #7c6fff;
   color: #fff;
 }

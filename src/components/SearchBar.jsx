@@ -1,3 +1,5 @@
+import '../styles/searchBar.css';
+
 function SearchBar({ searchType, searchKeyword, onSearchChange }) {
   return (
     <div className="board-search">

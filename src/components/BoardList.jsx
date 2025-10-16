@@ -60,12 +60,14 @@ function BoardList() {
           <li>게시글이 없습니다.</li>
         )}
       </ul>
-      <button
-        className="btn btn-primary mb-3"
-        onClick={() => navigate("/board/create")}
-      >
-        게시글 등록
-      </button>
+      <div className="btn-container">
+        <button
+          className="btn"
+          onClick={() => navigate("/board/create")}
+        >
+          게시글 등록
+        </button>
+      </div>
       {/* 검색 영역 */}
       <SearchBar
         searchType={searchType}
