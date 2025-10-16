@@ -7,9 +7,16 @@ const Board = () => {
   return(
     <div>
       <ProfileBar />
-      <BoardMenuBar />
       <Routes>
-        <Route path=":boardTypeCode" element={<BoardList />} />
+        <Route
+          path=":boardTypeCode"
+          element={
+            <>
+              <BoardMenuBar />
+              <BoardList />
+            </>
+          }
+        />
       </Routes>
     </div>
   )

@@ -5,14 +5,14 @@ import handleServerError from "../utils/handleServerError";
 import "../styles/BoardMenuBar.css";
 
 function BoardMenuBar() {
-   const [boardTypes, setBoardTypes] = useState([]);
-   const { boardTypeCode } = useParams();
-
+  const [boardTypes, setBoardTypes] = useState([]);
+  const { boardTypeCode } = useParams();
+  console.log(boardTypeCode);
   useEffect(() => {
     const fetchBoardTypes = async () => {
       try {
         const response = await getBoardTypes();
-        setBoardTypes(response.data); 
+        setBoardTypes(response.data);
       } catch (error) {
         handleServerError(error);
       }

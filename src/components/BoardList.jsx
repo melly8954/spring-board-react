@@ -62,12 +62,6 @@ function BoardList() {
 
   return (
     <div className="board-list">
-      <button
-        className="btn btn-primary mb-3"
-        onClick={() => navigate("/board/create")}
-      >
-        게시글 등록
-      </button>
       {/* 게시글 리스트 */}
       <ul className="board-items">
         {boards.length > 0 ? (
@@ -80,6 +74,12 @@ function BoardList() {
           <li>게시글이 없습니다.</li>
         )}
       </ul>
+      <button
+        className="btn btn-primary mb-3"
+        onClick={() => navigate("/board/create")}
+      >
+        게시글 등록
+      </button>
       {/* 검색 영역 */}
       <SearchBar
         searchType={searchType}
