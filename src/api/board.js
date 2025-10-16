@@ -26,4 +26,15 @@ const createBoard = async (formData) => {
   }
 }
 
-export { getBoardTypes, searchBoard, createBoard };
+const getBoardDetail = async (boardId) => {
+  try{
+    const response = await authApi.get(`/boards/${boardId}`, {
+        withCredentials: true,
+      });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getBoardTypes, searchBoard, createBoard, getBoardDetail };

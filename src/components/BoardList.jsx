@@ -52,7 +52,9 @@ function BoardList() {
       <ul className="board-items">
         {boards.length > 0 ? (
           boards.map((board) => (
-            <li key={board.boardId} className="board-item">
+            <li key={board.boardId} className="board-item"
+                onClick={() => navigate(`/board/${boardTypeCode}/${board.boardId}`)}
+            >
               <div className="board-title-wrapper">
                 <span className="board-id">{board.boardId}</span>
                 <span className="board-title">{board.title}</span>
