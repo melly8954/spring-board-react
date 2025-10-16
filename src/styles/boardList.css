@@ -13,13 +13,13 @@
 
 .board-item {
   padding: 12px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #7c6fff;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .board-item:hover {
-  background-color: #f5f5f5;
+  background-color: rgb(186, 193, 197);
 }
 
 /* 게시글 등록 버튼 */
@@ -27,15 +27,16 @@
   display: inline-block;
   padding: 8px 16px;
   margin-bottom: 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
   border-radius: 6px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  border: 1px solid #646cff;
+  background-color: #fff;        
+  color: #646cff; 
 }
 
 .board-list > .btn:hover {
-  background-color: #0056b3;
+  background-color: #7c6fff;
+  color: #fff;
 }

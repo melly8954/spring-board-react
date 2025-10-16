@@ -8,9 +8,9 @@
 }
 
 .page-btn {
-  border: 1px solid #007bff;
+  border: 1px solid #646cff;
   background-color: white;
-  color: #007bff;
+  color: #646cff;
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
@@ -19,7 +19,7 @@
 }
 
 .page-btn:hover:not(:disabled) {
-  background-color: #007bff;
+  background-color: #7c6fff;
   color: white;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .page-btn.active {
-  background-color: #007bff;
+  background-color: #7c6fff;
   color: white;
   font-weight: bold;
 }
