@@ -1,4 +1,4 @@
-function SearchBar({ searchType, searchKeyword, onSearchChange, onSearchSubmit }) {
+function SearchBar({ searchType, searchKeyword, onSearchChange }) {
   return (
     <div className="board-search">
       <select
@@ -16,10 +16,6 @@ function SearchBar({ searchType, searchKeyword, onSearchChange, onSearchSubmit }
         onChange={(e) => onSearchChange({ searchKeyword: e.target.value })}
         placeholder="검색어를 입력하세요"
       />
-
-      <button type="button" onClick={onSearchSubmit}>
-        검색
-      </button>
     </div>
   );
 }

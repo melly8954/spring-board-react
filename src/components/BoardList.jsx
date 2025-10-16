@@ -12,7 +12,7 @@ function BoardList() {
   const { boardTypeCode } = useParams();
   const [boards, setBoards] = useState([]);
   const [page, setPage] = useState(1);
-  const [size] = useState(10);
+  const [size] = useState(2);
   const [searchType, setSearchType] = useState("title");       // 검색 타입 (title, content 등)
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
   const [totalPages, setTotalPages] = useState(1);
@@ -29,32 +29,21 @@ function BoardList() {
   };
 
   useEffect(() => {
+    fetchBoards({ boardTypeCode, page, searchType, searchKeyword });
+  }, [boardTypeCode, page, searchType, searchKeyword]);
+
+  
+  useEffect(() => {
     setPage(1);
     setSearchType("title");     // 검색 타입 초기화
     setSearchKeyword("");       // 검색 키워드 초기화
-
-    fetchBoards({
-      boardTypeCode,
-      page: 1,
-      searchType: "title",
-      searchKeyword: ""
-    });
   }, [boardTypeCode]);
-
-  useEffect(() => {
-    fetchBoards({ boardTypeCode, page, searchType, searchKeyword });
-  }, [page]);
 
   // 검색창에서 값 변경
   const handleSearchChange = (changes) => {
     if (changes.searchType !== undefined) setSearchType(changes.searchType);
     if (changes.searchKeyword !== undefined) setSearchKeyword(changes.searchKeyword);
-  };
-
-  // 검색 버튼 클릭
-  const handleSearchSubmit = () => {
     setPage(1);
-    fetchBoards({ boardTypeCode, page: 1, searchType, searchKeyword });
   };
 
   return (
@@ -82,7 +71,6 @@ function BoardList() {
         searchType={searchType}
         searchKeyword={searchKeyword}
         onSearchChange={handleSearchChange}
-        onSearchSubmit={handleSearchSubmit}
       />
       {/* 페이지네이션 */}
       <Pagination

@@ -1,6 +1,8 @@
 import "../styles/Pagination.css";
 
 function Pagination({ page, totalPages, onPageChange }) {
+  totalPages = Math.max(totalPages, 1); // 최소 1페이지 보장
+  
   const maxPageButtons = 5; 
   const startPage = Math.floor((page - 1) / maxPageButtons) * maxPageButtons + 1;
   const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
