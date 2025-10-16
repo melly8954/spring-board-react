@@ -5,6 +5,7 @@ import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import { searchBoard } from "../api/board";
 import handleServerError from "../utils/handleServerError";
+import "../styles/boardList.css";
 
 function BoardList() {
   const navigate = useNavigate();
@@ -56,10 +57,6 @@ function BoardList() {
     fetchBoards({ boardTypeCode, page: 1, searchType, searchKeyword });
   };
 
-  // 이전 / 다음 버튼 클릭 핸들러
-  const handlePrev = () => setPage(prev => Math.max(prev - 1, 1));
-  const handleNext = () => setPage(prev => Math.min(prev + 1, totalPages));
-
   return (
     <div className="board-list">
       {/* 게시글 리스트 */}
@@ -91,8 +88,7 @@ function BoardList() {
       <Pagination
         page={page}
         totalPages={totalPages}
-        onPrev={handlePrev}
-        onNext={handleNext}
+        onPageChange={(newPage) => setPage(newPage)}
       />
     </div>
   );
