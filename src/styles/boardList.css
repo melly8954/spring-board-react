@@ -21,11 +21,22 @@
   background-color: rgb(186, 193, 197);
 }
 
-/* 제목 */
+.board-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 글 ID와 제목 사이 간격 */
+}
+
+.board-id {
+  font-weight: bold;
+  color: #7c6fff;
+  min-width: 40px;
+  text-align: right;
+}
+
 .board-title {
   font-weight: bold;
   font-size: 1rem;
-  margin-bottom: 6px;
   color: #333;
 }
 
@@ -35,7 +46,9 @@
   color: #666;
   display: flex;
   gap: 15px;
-  flex-wrap: wrap; /* 화면 좁아지면 줄바꿈 */
+  flex-wrap: nowrap;
+  padding-left: 50px;
+  padding-top:5px
 }
 
 .board-meta span {

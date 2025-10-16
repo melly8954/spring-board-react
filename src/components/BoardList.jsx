@@ -53,8 +53,10 @@ function BoardList() {
         {boards.length > 0 ? (
           boards.map((board) => (
             <li key={board.boardId} className="board-item">
-              {/* 제목 */}
-              <div className="board-title">{board.title}</div>
+              <div className="board-title-wrapper">
+                <span className="board-id">{board.boardId}</span>
+                <span className="board-title">{board.title}</span>
+              </div>
 
               {/* 메타 정보 */}
               <div className="board-meta">

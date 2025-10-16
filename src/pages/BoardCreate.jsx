@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBoardTypes, createBoard } from "../api/board";
 import handleServerError from '../utils/handleServerError';
+import '../styles/BoardCreate.css';
 
 const BoardCreate = () => {
   const navigate = useNavigate();
@@ -27,10 +28,24 @@ const BoardCreate = () => {
   }, []);
 
   const handleFileChange = (e) => {
-    setFiles(Array.from(e.target.files));
+    const newFiles = Array.from(e.target.files);
+    setFiles((prev) => [...prev, ...newFiles]);
+  };
+
+  const handleRemoveFile = (index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
+    if (!title.trim()) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!content.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
     const formData = new FormData();
     const dto = { boardTypeId, title, content };
     formData.append("data", new Blob([JSON.stringify(dto)], { type: "application/json" }));
@@ -92,8 +107,26 @@ const BoardCreate = () => {
       </label>
 
       <input type="file" multiple onChange={handleFileChange} />
+      <div className="file-list">
+        <strong>선택된 파일 목록:</strong>
+        {files.map((file, index) => (
+          <div key={index} className="file-item">
+            <span>{file.name}</span>
+            <button type="button" onClick={() => handleRemoveFile(index)}>삭제</button>
+          </div>
+        ))}
+      </div>
 
-      <button onClick={handleSubmit}>등록</button>
+      <div className="board-create-buttons">
+        <button onClick={handleSubmit}>등록</button>
+        <button
+          type="button"
+          className="back-btn"
+          onClick={() => navigate(-1)}
+        >
+          뒤로가기
+        </button>
+      </div>
     </div>
   );
 };
