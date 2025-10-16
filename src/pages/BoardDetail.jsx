@@ -53,6 +53,7 @@ const BoardDetail = () => {
 
       {/* 게시글 내용 */}
       <div className="board-detail-content">
+        <h4>{board.boardType}</h4>
         <p>{board.content}</p>
 
         {/* 이미지 파일 */}

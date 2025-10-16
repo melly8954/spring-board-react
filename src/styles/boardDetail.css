@@ -51,6 +51,13 @@
   justify-content: center;
 }
 
+.board-detail-content h4 {
+  border-bottom: 1px solid #333; /* 원하는 색상과 두께 */
+  padding-bottom: 5px; /* 텍스트와 선 사이 간격 */
+  margin-bottom: 10px; /* 선과 본문 사이 간격 */
+  font-weight: 600; /* 강조 느낌 */
+}
+
 /* 게시글 내용 */
 .board-detail-content {
   font-size: 1rem;
