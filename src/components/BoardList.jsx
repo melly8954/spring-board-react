@@ -12,7 +12,7 @@ function BoardList() {
   const { boardTypeCode } = useParams();
   const [boards, setBoards] = useState([]);
   const [page, setPage] = useState(1);
-  const [size] = useState(2);
+  const [size] = useState(5);
   const [searchType, setSearchType] = useState("title");       // 검색 타입 (title, content 등)
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
   const [totalPages, setTotalPages] = useState(1);
