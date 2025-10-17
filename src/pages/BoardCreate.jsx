@@ -11,6 +11,7 @@ const BoardCreate = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
   // 게시판 타입 불러오기
   useEffect(() => {
@@ -29,11 +30,32 @@ const BoardCreate = () => {
 
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
+
+    // 단일 파일 검사
+    for (const file of newFiles) {
+      if (file.size > 10 * 1024 * 1024) {
+        setFiles([]);
+        setFileInputKey(Date.now()); // input 초기화
+        alert(`파일 "${file.name}"의 용량이 10MB를 초과했습니다.`);
+        return;
+      }
+    }
+
+    // 총합 검사
+    const totalSize = [...files, ...newFiles].reduce((acc, f) => acc + f.size, 0);
+    if (totalSize > 20 * 1024 * 1024) {
+      setFiles([]);
+      setFileInputKey(Date.now()); // input 초기화
+      alert("선택된 파일들의 총 용량이 20MB를 초과했습니다.");
+      return;
+    }
+
     setFiles((prev) => [...prev, ...newFiles]);
   };
 
   const handleRemoveFile = (index) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
+    setFileInputKey(Date.now()); // 삭제 후 input 초기화
   };
 
   const handleSubmit = async (e) => {
@@ -106,7 +128,12 @@ const BoardCreate = () => {
         />
       </label>
 
-      <input type="file" multiple onChange={handleFileChange} />
+      <input
+        key={fileInputKey}
+        type="file"
+        multiple
+        onChange={handleFileChange}
+      />
       <div className="file-list">
         <strong>선택된 파일 목록:</strong>
         {files.map((file, index) => (

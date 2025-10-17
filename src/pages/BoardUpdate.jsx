@@ -13,6 +13,7 @@ function BoardUpdate() {
     files: []
   });
   const [newFiles, setNewFiles] = useState([]);
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
   const [removeFileIds, setRemoveFileIds] = useState([]);
 
   // 게시글 상세 불러오기
@@ -34,7 +35,30 @@ function BoardUpdate() {
   };
 
   const handleFileChange = (e) => {
-    setNewFiles([...e.target.files]);
+    const addedFiles = Array.from(e.target.files);
+
+    // 단일 파일 제한
+    for (const file of addedFiles) {
+      if (file.size > 10 * 1024 * 1024) {
+        setNewFiles([]);
+        setFileInputKey(Date.now()); // input 초기화
+        alert(`파일 "${file.name}"의 용량이 10MB를 초과했습니다.`);
+        return;
+      }
+    }
+
+    // 기존 파일 + 새 파일 총합 계산
+    const existingSize = board.files.reduce((acc, f) => acc + f.size, 0); // 기존 파일 크기
+    const newTotalSize = existingSize + newFiles.reduce((acc, f) => acc + f.size, 0) + addedFiles.reduce((acc, f) => acc + f.size, 0);
+
+    if (newTotalSize > 20 * 1024 * 1024) {
+      setNewFiles([]);
+      setFileInputKey(Date.now()); // input 초기화
+      alert("총 파일 용량이 20MB를 초과했습니다.");
+      return;
+    }
+
+    setNewFiles((prev) => [...prev, ...addedFiles]);
   };
 
   // 기존 파일 제거 (UI + 삭제 목록에 추가)
@@ -44,6 +68,12 @@ function BoardUpdate() {
       files: prev.files.filter((file) => file.fileId !== fileId),
     }));
     setRemoveFileIds((prev) => [...prev, fileId]);
+  };
+
+  // 새 파일 삭제 시 input 리렌더링
+  const handleRemoveNewFile = (index) => {
+    setNewFiles((prev) => prev.filter((_, i) => i !== index));
+    setFileInputKey(Date.now()); // 여기서 key 변경 → 같은 파일 재선택 가능
   };
 
   // 저장 (formData 직접 구성)
@@ -98,7 +128,7 @@ function BoardUpdate() {
 
         <div className={styles.formGroup}>
           <label>첨부파일</label>
-          <input type="file" multiple onChange={handleFileChange} />
+          <input type="file" key={fileInputKey} multiple onChange={handleFileChange} />
         </div>
 
         {board.files && board.files.length > 0 && (
@@ -112,6 +142,26 @@ function BoardUpdate() {
                     type="button"
                     className={styles.fileRemoveBtn}
                     onClick={() => handleRemoveOldFile(file.fileId)}
+                  >
+                    ❌
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {newFiles.length > 0 && (
+          <div className={styles.boardUpdateFiles}>
+            <strong>새로 추가한 파일</strong>
+            <ul>
+              {newFiles.map((file, index) => (
+                <li key={index}>
+                  {file.name}
+                  <button
+                    type="button"
+                    className={styles.fileRemoveBtn}
+                    onClick={() => handleRemoveNewFile(index)}
                   >
                     ❌
                   </button>

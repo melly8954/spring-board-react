@@ -5,12 +5,13 @@ import handleServerError from '../utils/handleServerError';
 import '../styles/signup.css';
 
 function Signup() {
-  const navigate = useNavigate()  
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [name, setName] = useState('')
   const [file, setFile] = useState('')
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
   const handleSignup = async () => {
     // 회원가입 API 호출
@@ -22,6 +23,17 @@ function Signup() {
       handleServerError(error);
     }
   }
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile.size > 10 * 1024 * 1024) { // 10MB
+      setFile(null);
+      setFileInputKey(Date.now()); // input 초기화
+      alert("업로드 파일이 10MB를 초과했습니다.");
+      return;
+    }
+    setFile(selectedFile);
+  };
 
   return (
     <div className="app-container">
@@ -45,16 +57,17 @@ function Signup() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-         <input
+        <input
           type="text"
           placeholder="이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          key={fileInputKey}
           type="file"
           accept="image/*"
-          onChange={e => setFile(e.target.files[0])} 
+          onChange={handleFileChange}
         />
         <button className="signup-button" onClick={handleSignup}>
           회원가입
