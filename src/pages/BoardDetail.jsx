@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getBoardDetail } from "../api/board";
 import handleServerError from "../utils/handleServerError";
-import '../styles/BoardDetail.css';
+import '../styles/boardDetail.css';
 
 const BoardDetail = () => {
   const { boardTypeCode, boardId } = useParams();
@@ -27,10 +27,10 @@ const BoardDetail = () => {
     <div className="board-detail">
       {/* 버튼 영역: 뒤로가기 / 수정 / 삭제 */}
       <div className="board-detail-actions">
-        <button className="action-btn" onClick={() => navigate(-1)}>← 뒤로가기</button>
+        <button className="action-btn" onClick={() => navigate(`/board/${boardTypeCode}`)}>← 뒤로가기</button>
         {board.isOwner && (
           <>
-            <button className="action-btn" onClick={() => navigate(`/board/${boardTypeCode}/edit/${board.boardId}`)}>수정</button>
+            <button className="action-btn" onClick={() => navigate(`/board/${boardTypeCode}/update/${board.boardId}`)}>수정</button>
             <button className="action-btn" onClick={() => alert("삭제 로직 추가 필요")}>삭제</button>
           </>
         )}
