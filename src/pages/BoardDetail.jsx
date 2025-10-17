@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getBoardDetail } from "../api/board";
+import { getBoardDetail, deleteBoard} from "../api/board";
 import handleServerError from "../utils/handleServerError";
 import '../styles/boardDetail.css';
 
@@ -23,6 +23,16 @@ const BoardDetail = () => {
 
   if (!board) return <div className="loading">로딩 중...</div>;
 
+   const handleDeleteBoard = async (boardId) => {
+    try{
+      const response = await deleteBoard(boardId);
+      alert(response.message);
+      navigate(`/board/${boardTypeCode}`);
+    } catch (error) {
+      handleServerError(error);
+    }
+  };
+  
   return (
     <div className="board-detail">
       {/* 버튼 영역: 뒤로가기 / 수정 / 삭제 */}
@@ -31,7 +41,7 @@ const BoardDetail = () => {
         {board.isOwner && (
           <>
             <button className="action-btn" onClick={() => navigate(`/board/${boardTypeCode}/update/${board.boardId}`)}>수정</button>
-            <button className="action-btn" onClick={() => alert("삭제 로직 추가 필요")}>삭제</button>
+            <button className="action-btn" onClick={() => handleDeleteBoard(boardId)}>삭제</button>
           </>
         )}
       </div>

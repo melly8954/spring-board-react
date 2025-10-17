@@ -49,4 +49,15 @@ const updateBoard = async (boardId, formData) => {
   }
 }
 
-export { getBoardTypes, searchBoard, createBoard, getBoardDetail, updateBoard };
+const deleteBoard = async (boardId) => {
+  try {
+    const response = await authApi.delete(`/boards/${boardId}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getBoardTypes, searchBoard, createBoard, getBoardDetail, updateBoard, deleteBoard };
