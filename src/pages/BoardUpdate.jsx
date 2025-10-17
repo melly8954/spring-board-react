@@ -103,7 +103,7 @@ function BoardUpdate() {
 
         {board.files && board.files.length > 0 && (
           <div className={styles.boardUpdateFiles}>
-            <strong>기존 첨부파일:</strong>
+            <strong>기존 첨부파일</strong>
             <ul>
               {board.files.map((file) => (
                 <li key={file.fileId}>
