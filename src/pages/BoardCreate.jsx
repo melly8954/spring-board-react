@@ -139,7 +139,7 @@ const BoardCreate = () => {
         {files.map((file, index) => (
           <div key={index} className="file-item">
             <span>{file.name}</span>
-            <button type="button" onClick={() => handleRemoveFile(index)}>삭제</button>
+            <button type="button" onClick={() => handleRemoveFile(index)}>❌</button>
           </div>
         ))}
       </div>
