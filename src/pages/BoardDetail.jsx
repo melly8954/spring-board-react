@@ -17,7 +17,7 @@ const BoardDetail = () => {
         const response = await getBoardDetail(boardId);
         setBoard(response.data);
         setLikeCount(response.data.likeCount);
-        setLiked(response.data.isLiked); 
+        setLiked(response.data.isLiked);
       } catch (error) {
         handleServerError(error);
       }
@@ -123,10 +123,11 @@ const BoardDetail = () => {
 
       {/* 좋아요 토글 */}
       <div className="board-detail-like">
-        <button onClick={handleToggleLike}>
-          {liked ? "💖 좋아요 취소" : "🤍 좋아요"}
+        <button onClick={handleToggleLike} className="like-btn">
+          {liked ? "💖" : "🤍"}
         </button>
-        <span> {likeCount}명</span>
+        <div className="like-text">좋아요</div>
+        <div className="like-count">{likeCount}</div>
       </div>
 
       {/* 댓글 영역 (추후 추가) */}
