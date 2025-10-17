@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getBoardDetail, deleteBoard} from "../api/board";
+import { getBoardDetail, deleteBoard, toggleBoardLike } from "../api/board";
 import handleServerError from "../utils/handleServerError";
 import '../styles/boardDetail.css';
 
@@ -8,23 +8,27 @@ const BoardDetail = () => {
   const { boardTypeCode, boardId } = useParams();
   const navigate = useNavigate();
   const [board, setBoard] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     const fetchBoard = async () => {
       try {
         const response = await getBoardDetail(boardId);
         setBoard(response.data);
+        setLikeCount(response.data.likeCount);
+        setLiked(response.data.isLiked); 
       } catch (error) {
         handleServerError(error);
       }
     };
     fetchBoard();
-  }, [boardId]);
+  }, [boardId, liked]);
 
   if (!board) return <div className="loading">로딩 중...</div>;
 
-   const handleDeleteBoard = async (boardId) => {
-    try{
+  const handleDeleteBoard = async (boardId) => {
+    try {
       const response = await deleteBoard(boardId);
       alert(response.message);
       navigate(`/board/${boardTypeCode}`);
@@ -32,7 +36,20 @@ const BoardDetail = () => {
       handleServerError(error);
     }
   };
-  
+
+  const handleToggleLike = async () => {
+    try {
+      const response = await toggleBoardLike(boardId);
+      alert(response.message);
+
+      // UI 즉시 반영 (토글)
+      setLiked(prev => !prev);
+      setLikeCount(prev => liked ? prev - 1 : prev + 1);
+    } catch (error) {
+      handleServerError(error);
+    }
+  };
+
   return (
     <div className="board-detail">
       {/* 버튼 영역: 뒤로가기 / 수정 / 삭제 */}
@@ -103,6 +120,14 @@ const BoardDetail = () => {
           </ul>
         </div>
       )}
+
+      {/* 좋아요 토글 */}
+      <div className="board-detail-like">
+        <button onClick={handleToggleLike}>
+          {liked ? "💖 좋아요 취소" : "🤍 좋아요"}
+        </button>
+        <span> {likeCount}명</span>
+      </div>
 
       {/* 댓글 영역 (추후 추가) */}
       <div className="board-detail-comments">

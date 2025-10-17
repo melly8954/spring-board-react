@@ -60,4 +60,18 @@ const deleteBoard = async (boardId) => {
   }
 }
 
-export { getBoardTypes, searchBoard, createBoard, getBoardDetail, updateBoard, deleteBoard };
+const toggleBoardLike = async (boardId) => {
+  try {
+    const response = await authApi.post(`/boards/${boardId}/likes`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export {
+  getBoardTypes, searchBoard, createBoard, getBoardDetail,
+  updateBoard, deleteBoard, toggleBoardLike
+};
