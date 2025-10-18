@@ -1,0 +1,101 @@
+.commentList {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.submitButton {
+  align-self: flex-end;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  border: 1px solid #646cff;
+  background-color: #fff;
+  color: #646cff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #7c6fff;
+  color: #fff;
+}
+
+.commentItem {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-left: 1px solid #eee; /* 구분선 */
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.commentHeader strong {
+  color: #333;
+}
+
+.commentDate {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.commentContent {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+
+.commentButton {
+  background: transparent;
+  border: 1px solid #646cff;
+  background-color: #fff;
+  color: #646cff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+
+.commentDelete {
+  color: #d9534f;
+}
+
+.commentButton:hover {
+  background-color: #7c6fff;
+  color: #fff;
+}

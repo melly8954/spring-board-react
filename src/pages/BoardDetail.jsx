@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getBoardDetail, deleteBoard, toggleBoardLike } from "../api/board";
+import CommentList from "../components/CommentList";
 import handleServerError from "../utils/handleServerError";
 import '../styles/boardDetail.css';
 
@@ -130,9 +131,9 @@ const BoardDetail = () => {
         <div className="like-count">{likeCount}</div>
       </div>
 
-      {/* 댓글 영역 (추후 추가) */}
+      {/* 댓글 영역 */}
       <div className="board-detail-comments">
-        {/* 댓글 컴포넌트 추가 예정 */}
+        <CommentList boardId={boardId} />
       </div>
     </div>
   );
