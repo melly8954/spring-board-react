@@ -11,6 +11,7 @@ const CommentList = ({ boardId }) => {
   const [page, setPage] = useState(1);
   const [size] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
+  const [openReplyId, setOpenReplyId] = useState(null);
 
   // 댓글 목록 조회
   useEffect(() => {
@@ -31,7 +32,10 @@ const CommentList = ({ boardId }) => {
 
   // 새 댓글 작성
   const handleAddComment = async () => {
-    if (!newComment.trim()) return;
+    if (!newComment.trim()) {
+      alert("댓글 내용을 작성하세요.");
+      return;
+    } 
 
     const dto = {
       boardId,
@@ -59,6 +63,11 @@ const CommentList = ({ boardId }) => {
     } catch (error) {
       handleServerError(error);
     }
+  };
+
+  // 답글창 열기/닫기 토글
+  const toggleReplyForm = (commentId) => {
+    setOpenReplyId((prev) => (prev === commentId ? null : commentId));
   };
 
   return (
@@ -89,6 +98,8 @@ const CommentList = ({ boardId }) => {
             styles={styles}
             boardId={boardId}
             fetchComments={fetchComments}
+            openReplyId={openReplyId}
+            toggleReplyForm={toggleReplyForm}
           />
         ))
       )}
@@ -104,12 +115,15 @@ const CommentList = ({ boardId }) => {
 };
 
 // 댓글 + 대댓글 재귀 컴포넌트
-const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
+const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments, openReplyId, toggleReplyForm }) => {
   const [replyContent, setReplyContent] = useState("");
-  const [showReplyForm, setShowReplyForm] = useState(false);
 
   const handleAddReply = async () => {
-    if (!replyContent.trim()) return;
+    if (!replyContent.trim()) {
+      alert("댓글 내용을 작성하세요.");
+      return;
+    } 
+    
     try {
       await addComment({
         boardId,
@@ -117,7 +131,7 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
         content: replyContent,
       });
       setReplyContent("");
-      setShowReplyForm(false);
+      toggleReplyForm(comment.commentId);
       fetchComments();
     } catch (error) {
       handleServerError(error);
@@ -141,7 +155,7 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
         <>
           <button
             className={styles.commentButton}
-            onClick={() => setShowReplyForm(!showReplyForm)}
+            onClick={() => toggleReplyForm(comment.commentId)}
           >
             답글
           </button>
@@ -157,8 +171,8 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
         </>
       )}
 
-      {/* 답글 작성 폼 */}
-      {showReplyForm && (
+      {/* 답글 입력창 (openReplyId 기준으로 열림) */}
+      {openReplyId === comment.commentId && (
         <div className={styles.commentForm}>
           <textarea
             className={styles.textarea}
@@ -166,9 +180,17 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
             onChange={(e) => setReplyContent(e.target.value)}
             placeholder="답글을 입력하세요"
           />
-          <button className={styles.submitButton} onClick={handleAddReply}>
-            등록
-          </button>
+          <div className={styles.buttonGroup}>
+            <button className={styles.submitButton} onClick={handleAddReply}>
+              등록
+            </button>
+            <button
+              className={`${styles.cancelButton}`}
+              onClick={() => toggleReplyForm(comment.commentId)}
+            >
+              취소
+            </button>
+          </div>
         </div>
       )}
 
@@ -182,6 +204,8 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments }) => {
             styles={styles}
             boardId={boardId}
             fetchComments={fetchComments}
+            openReplyId={openReplyId}
+            toggleReplyForm={toggleReplyForm}
           />
         ))}
     </div>
