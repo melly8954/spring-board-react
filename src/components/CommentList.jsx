@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getComments, addComment, deleteComment } from "../api/comment";
+import { getComments, addComment, deleteComment, toggleCommentLike } from "../api/comment";
 import Pagination from "./Pagination";
 import handleServerError from "../utils/handleServerError";
 import styles from "../styles/CommentList.module.css"; // import CSS Module
@@ -35,7 +35,7 @@ const CommentList = ({ boardId }) => {
     if (!newComment.trim()) {
       alert("댓글 내용을 작성하세요.");
       return;
-    } 
+    }
 
     const dto = {
       boardId,
@@ -122,8 +122,8 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments, openRe
     if (!replyContent.trim()) {
       alert("댓글 내용을 작성하세요.");
       return;
-    } 
-    
+    }
+
     try {
       await addComment({
         boardId,
@@ -133,6 +133,16 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments, openRe
       setReplyContent("");
       toggleReplyForm(comment.commentId);
       fetchComments();
+    } catch (error) {
+      handleServerError(error);
+    }
+  };
+
+  const handleToggleLike = async (commentId) => {
+    try {
+      // API 호출
+      await toggleCommentLike(commentId);
+      fetchComments(); 
     } catch (error) {
       handleServerError(error);
     }
@@ -151,6 +161,17 @@ const CommentItem = ({ comment, onDelete, styles, boardId, fetchComments, openRe
       </div>
       <span className={styles.commentDate}>{comment.createdAt}</span>
       <br></br>
+
+      {/* 좋아요 버튼 */}
+      {comment.status === "ACTIVE" && (
+        <button
+          className={styles.likeButton}
+          onClick={() => handleToggleLike(comment.commentId)}
+        >
+          {comment.isLiked ? "❤️" : "🤍"} {comment.likeCount}
+        </button>
+      )}
+
       {comment.status === "ACTIVE" && (
         <>
           <button

@@ -32,4 +32,17 @@ const deleteComment = async (commentId) => {
   }
 };
 
-export { getComments, addComment, deleteComment };
+// 댓글 좋아요 토글
+const toggleCommentLike = async (commentId) => {
+  try {
+    const response = await authApi.post(`/comments/${commentId}/likes`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getComments, addComment, deleteComment, toggleCommentLike };
+
