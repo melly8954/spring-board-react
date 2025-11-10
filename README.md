@@ -6,7 +6,6 @@
 C:.
 |   App.jsx
 |   main.jsx
-|   tree.txt
 |   
 +---api
 |       auth.js
